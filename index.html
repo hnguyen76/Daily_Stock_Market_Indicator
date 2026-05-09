@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Daily Global Stock Market Indicators</title>
+    <link rel="stylesheet" href="assets/dashboard.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Global market dashboard</p>
+          <h1 id="page-title">Daily Global Stock Market Indicators</h1>
+        </div>
+        <div class="meta-pill" id="dataset-window"></div>
+      </section>
+
+      <section class="kpi-grid" aria-label="Dataset overview">
+        <article class="kpi-card">
+          <span class="kpi-label">Observations</span>
+          <strong id="kpi-rows">0</strong>
+          <small>validated records</small>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-label">Markets</span>
+          <strong id="kpi-markets">0</strong>
+          <small>indexes tracked</small>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-label">Countries</span>
+          <strong id="kpi-countries">0</strong>
+          <small>regional coverage</small>
+        </article>
+        <article class="kpi-card accent">
+          <span class="kpi-label">Data Quality</span>
+          <strong id="kpi-quality">Ready</strong>
+          <small id="kpi-quality-note">screening layer</small>
+        </article>
+      </section>
+
+      <section class="control-strip" aria-label="Dashboard controls">
+        <div class="control-group">
+          <span class="control-label">Horizon</span>
+          <div class="segmented" id="horizon-controls">
+            <button type="button" data-horizon="all" class="active">Full</button>
+            <button type="button" data-horizon="365">12M</button>
+            <button type="button" data-horizon="180">6M</button>
+            <button type="button" data-horizon="90">90D</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <span class="control-label">Metric</span>
+          <div class="segmented" id="metric-controls">
+            <button type="button" data-metric="normalizedClose" class="active">Price</button>
+            <button type="button" data-metric="rolling30DChange">Momentum</button>
+          </div>
+        </div>
+        <label class="select-label">
+          <span>Heatmap</span>
+          <select id="heatmap-index"></select>
+        </label>
+      </section>
+
+      <section class="index-chips" id="index-chips" aria-label="Index filters"></section>
+
+      <section class="dashboard-grid">
+        <article class="panel wide">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">Trend monitor</p>
+              <h2 id="trend-title">Rebased price performance</h2>
+            </div>
+            <span id="trend-subtitle" class="panel-note"></span>
+          </div>
+          <div class="chart-wrap">
+            <svg id="line-chart" role="img" aria-label="Market trend line chart"></svg>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">Risk and signal</p>
+              <h2>90D positioning map</h2>
+            </div>
+          </div>
+          <div class="chart-wrap compact">
+            <svg id="scatter-chart" role="img" aria-label="Risk return scatter chart"></svg>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">Seasonality</p>
+              <h2>Monthly heatmap</h2>
+            </div>
+            <span id="heatmap-label" class="panel-note"></span>
+          </div>
+          <div id="heatmap" class="heatmap" aria-label="Monthly average change heatmap"></div>
+        </article>
+      </section>
+
+      <section class="insight-grid">
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">Investment view</p>
+              <h2>Top opportunity scores</h2>
+            </div>
+          </div>
+          <div id="leader-list" class="brief-list"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">Downside control</p>
+              <h2>Risk watch</h2>
+            </div>
+          </div>
+          <div id="risk-list" class="brief-list"></div>
+        </article>
+      </section>
+
+      <section class="panel table-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-kicker">Market scoreboard</p>
+            <h2>Cross-index comparison</h2>
+          </div>
+          <span class="panel-note">Daily change based signal layer</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-sort="index">Index</th>
+                <th data-sort="country">Country</th>
+                <th data-sort="opportunityScore">Score</th>
+                <th data-sort="avgChange90D">90D Avg</th>
+                <th data-sort="winRate90D">90D Win</th>
+                <th data-sort="volumeTrend">Vol Trend</th>
+                <th data-sort="tailRisk5Pct">5% Tail</th>
+                <th data-sort="regime">Regime</th>
+              </tr>
+            </thead>
+            <tbody id="scoreboard-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="disclaimer">
+        <strong>Research use only.</strong>
+        This project is a screening and visualization layer. Validate signals with live data,
+        macro context, fees, taxes, and personal risk tolerance before making investment decisions.
+      </section>
+    </main>
+
+    <script src="assets/market_data.js"></script>
+    <script src="assets/dashboard.js"></script>
+  </body>
+</html>
